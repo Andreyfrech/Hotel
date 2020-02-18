@@ -1,0 +1,646 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ДипломModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Бронь">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idКлиента" Type="smallint" Nullable="false" />
+    <Property Name="idНомера" Type="smallint" Nullable="false" />
+    <Property Name="Дата начала" Type="date" Nullable="false" />
+    <Property Name="Дата окончания" Type="date" Nullable="false" />
+    <Property Name="Статус" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Закупка инвентаря">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idИнвентаря" Type="smallint" Nullable="false" />
+    <Property Name="Дата" Type="date" Nullable="false" />
+    <Property Name="IdПоставщика" Type="smallint" Nullable="false" />
+    <Property Name="Количество" Type="smallint" />
+    <Property Name="Цена" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="Стоимость" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="idСотрудника" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Заявка на ремонт">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idПомещения" Type="smallint" />
+    <Property Name="Номер" Type="smallint" />
+    <Property Name="Ремонтные работы" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="Инвентарь" Type="smallint" />
+    <Property Name="Количество" Type="smallint" />
+    <Property Name="idСотрудника" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Инвентарь">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="50" />
+    <Property Name="Количество" Type="smallint" />
+  </EntityType>
+  <EntityType Name="Категория номеров">
+    <Key>
+      <PropertyRef Name="Категория" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Категория" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Цена за день" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Клиент">
+    <Key>
+      <PropertyRef Name="idклиента" />
+    </Key>
+    <Property Name="idклиента" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фамилия" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Имя" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Отчество" Type="varchar" MaxLength="15" />
+    <Property Name="Дата рождения" Type="date" />
+    <Property Name="Паспорт" Type="varchar" MaxLength="15" />
+    <Property Name="Пол" Type="nchar" MaxLength="1" />
+    <Property Name="Телефон" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Места на парковке">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Место" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Номера">
+    <Key>
+      <PropertyRef Name="Номер" />
+    </Key>
+    <Property Name="Номер" Type="smallint" Nullable="false" />
+    <Property Name="Категория" Type="varchar" MaxLength="50" />
+    <Property Name="Количество мест" Type="smallint" />
+    <Property Name="Телевизор" Type="bit" Nullable="false" />
+    <Property Name="Wifi" Type="bit" Nullable="false" />
+    <Property Name="Кондиционер" Type="bit" Nullable="false" />
+    <Property Name="Сейф" Type="bit" Nullable="false" />
+    <Property Name="Балкон" Type="bit" Nullable="false" />
+    <Property Name="Телефон" Type="bit" Nullable="false" />
+    <Property Name="Статус" Type="smallint" />
+    <Property Name="Тариф" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Отзыв клиента">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idКлиента" Type="smallint" />
+    <Property Name="Оценка" Type="smallint" />
+    <Property Name="Отзыв" Type="varchar" MaxLength="100" />
+    <Property Name="Пожелания" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Парковка">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idКлиента" Type="smallint" Nullable="false" />
+    <Property Name="Авто" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Госномер" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Дата начала" Type="date" />
+    <Property Name="Дата окончания" Type="date" />
+    <Property Name="Количество дней" Type="smallint" />
+    <Property Name="idМеста" Type="smallint" />
+  </EntityType>
+  <EntityType Name="Подразделение">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Руководитель" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Помещение">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Помещение" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Этаж" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Поставщик">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Адрес" Type="varchar" MaxLength="50" />
+    <Property Name="Телефон" Type="varchar" MaxLength="20" />
+    <Property Name="E-mail" Type="varchar" MaxLength="50" />
+    <Property Name="Заметки" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Предоставление услуг">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Счет" Type="smallint" Nullable="false" />
+    <Property Name="idУслуги" Type="smallint" Nullable="false" />
+    <Property Name="idКлиента" Type="smallint" Nullable="false" />
+    <Property Name="Дата" Type="date" Nullable="false" />
+    <Property Name="Количество" Type="smallint" Nullable="false" />
+    <Property Name="Цена" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Проживание">
+    <Key>
+      <PropertyRef Name="idСчета" />
+    </Key>
+    <Property Name="idСчета" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idНомера" Type="smallint" Nullable="false" />
+    <Property Name="idКлиента" Type="smallint" Nullable="false" />
+    <Property Name="idБрони" Type="smallint" Nullable="false" />
+    <Property Name="idСотрудника" Type="smallint" Nullable="false" />
+    <Property Name="Дата заезда" Type="date" Nullable="false" />
+    <Property Name="Дата выезда" Type="date" Nullable="false" />
+    <Property Name="Количество дней" Type="smallint" Nullable="false" />
+    <Property Name="Цена услуг" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Цена проживания" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="Скидка" Type="decimal" Precision="4" Scale="2" />
+    <Property Name="Цена итог" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="Сумма оплат" Type="decimal" Precision="8" Scale="2" />
+  </EntityType>
+  <EntityType Name="Ремонтные работы">
+    <Key>
+      <PropertyRef Name="Наименование" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="35" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Роль">
+    <Key>
+      <PropertyRef Name="Роль" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Роль" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Сотрудник">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Роль" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Фамилия" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Имя" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Отчество" Type="varchar" MaxLength="10" />
+    <Property Name="Должность" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Подразделение" Type="smallint" />
+    <Property Name="Дата рождения" Type="date" />
+    <Property Name="Паспорт" Type="varchar" MaxLength="15" />
+    <Property Name="Трудовая книжка" Type="varchar" MaxLength="15" />
+    <Property Name="Телефон" Type="varchar" MaxLength="15" />
+    <Property Name="Дата начала работы" Type="date" />
+    <Property Name="Логин" Type="varchar" MaxLength="20" />
+    <Property Name="Пароль" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Статус номера">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Статус" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Тариф">
+    <Key>
+      <PropertyRef Name="Наименование" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Описание" Type="varchar" MaxLength="50" />
+    <Property Name="Изменение цены в процентах" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Услуги">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименовние" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Цена" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Бронь_Клиент">
+    <End Role="Клиент" Type="Self.Клиент" Multiplicity="1" />
+    <End Role="Бронь" Type="Self.Бронь" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Клиент">
+        <PropertyRef Name="idклиента" />
+      </Principal>
+      <Dependent Role="Бронь">
+        <PropertyRef Name="idКлиента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Бронь_Номера">
+    <End Role="Номера" Type="Self.Номера" Multiplicity="1" />
+    <End Role="Бронь" Type="Self.Бронь" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Номера">
+        <PropertyRef Name="Номер" />
+      </Principal>
+      <Dependent Role="Бронь">
+        <PropertyRef Name="idНомера" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Закупка инвентаря_Инвентарь">
+    <End Role="Инвентарь" Type="Self.Инвентарь" Multiplicity="1" />
+    <End Role="Закупка инвентаря" Type="Self.Закупка инвентаря" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Инвентарь">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Закупка инвентаря">
+        <PropertyRef Name="idИнвентаря" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Закупка инвентаря_Поставщик">
+    <End Role="Поставщик" Type="Self.Поставщик" Multiplicity="1" />
+    <End Role="Закупка инвентаря" Type="Self.Закупка инвентаря" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Поставщик">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Закупка инвентаря">
+        <PropertyRef Name="IdПоставщика" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Закупка инвентаря_Сотрудник">
+    <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="1" />
+    <End Role="Закупка инвентаря" Type="Self.Закупка инвентаря" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Сотрудник">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Закупка инвентаря">
+        <PropertyRef Name="idСотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заявка на ремонт_Инвентарь">
+    <End Role="Инвентарь" Type="Self.Инвентарь" Multiplicity="0..1" />
+    <End Role="Заявка на ремонт" Type="Self.Заявка на ремонт" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Инвентарь">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Заявка на ремонт">
+        <PropertyRef Name="Инвентарь" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заявка на ремонт_Номера">
+    <End Role="Номера" Type="Self.Номера" Multiplicity="0..1" />
+    <End Role="Заявка на ремонт" Type="Self.Заявка на ремонт" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Номера">
+        <PropertyRef Name="Номер" />
+      </Principal>
+      <Dependent Role="Заявка на ремонт">
+        <PropertyRef Name="Номер" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заявка на ремонт_Помещение">
+    <End Role="Помещение" Type="Self.Помещение" Multiplicity="0..1" />
+    <End Role="Заявка на ремонт" Type="Self.Заявка на ремонт" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Помещение">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Заявка на ремонт">
+        <PropertyRef Name="idПомещения" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заявка на ремонт_Ремонтные работы">
+    <End Role="Ремонтные работы" Type="Self.Ремонтные работы" Multiplicity="1" />
+    <End Role="Заявка на ремонт" Type="Self.Заявка на ремонт" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ремонтные работы">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Заявка на ремонт">
+        <PropertyRef Name="Ремонтные работы" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заявка на ремонт_Сотрудник">
+    <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="1" />
+    <End Role="Заявка на ремонт" Type="Self.Заявка на ремонт" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Сотрудник">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Заявка на ремонт">
+        <PropertyRef Name="idСотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Номера_Категория номеров">
+    <End Role="Категория номеров" Type="Self.Категория номеров" Multiplicity="0..1" />
+    <End Role="Номера" Type="Self.Номера" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Категория номеров">
+        <PropertyRef Name="Категория" />
+      </Principal>
+      <Dependent Role="Номера">
+        <PropertyRef Name="Категория" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Номера_Статус номера">
+    <End Role="Статус номера" Type="Self.Статус номера" Multiplicity="0..1" />
+    <End Role="Номера" Type="Self.Номера" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Статус номера">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Номера">
+        <PropertyRef Name="Статус" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Номера_Тариф">
+    <End Role="Тариф" Type="Self.Тариф" Multiplicity="0..1" />
+    <End Role="Номера" Type="Self.Номера" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тариф">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Номера">
+        <PropertyRef Name="Тариф" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Отзыв клиента_Клиент">
+    <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+    <End Role="Отзыв клиента" Type="Self.Отзыв клиента" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Клиент">
+        <PropertyRef Name="idклиента" />
+      </Principal>
+      <Dependent Role="Отзыв клиента">
+        <PropertyRef Name="idКлиента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Парковка_Места на парковке">
+    <End Role="Места на парковке" Type="Self.Места на парковке" Multiplicity="0..1" />
+    <End Role="Парковка" Type="Self.Парковка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Места на парковке">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Парковка">
+        <PropertyRef Name="idМеста" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Парковочные места_Клиент">
+    <End Role="Клиент" Type="Self.Клиент" Multiplicity="1" />
+    <End Role="Парковка" Type="Self.Парковка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Клиент">
+        <PropertyRef Name="idклиента" />
+      </Principal>
+      <Dependent Role="Парковка">
+        <PropertyRef Name="idКлиента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Предоставление услуг_Проживание1">
+    <End Role="Проживание" Type="Self.Проживание" Multiplicity="1" />
+    <End Role="Предоставление услуг" Type="Self.Предоставление услуг" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Проживание">
+        <PropertyRef Name="idСчета" />
+      </Principal>
+      <Dependent Role="Предоставление услуг">
+        <PropertyRef Name="Счет" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Предоставление услуг_Услуги">
+    <End Role="Услуги" Type="Self.Услуги" Multiplicity="1" />
+    <End Role="Предоставление услуг" Type="Self.Предоставление услуг" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Услуги">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Предоставление услуг">
+        <PropertyRef Name="idУслуги" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Проживание_Бронь">
+    <End Role="Бронь" Type="Self.Бронь" Multiplicity="1" />
+    <End Role="Проживание" Type="Self.Проживание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Бронь">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Проживание">
+        <PropertyRef Name="idБрони" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Проживание_Клиент">
+    <End Role="Клиент" Type="Self.Клиент" Multiplicity="1" />
+    <End Role="Проживание" Type="Self.Проживание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Клиент">
+        <PropertyRef Name="idклиента" />
+      </Principal>
+      <Dependent Role="Проживание">
+        <PropertyRef Name="idКлиента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Проживание_Номера">
+    <End Role="Номера" Type="Self.Номера" Multiplicity="1" />
+    <End Role="Проживание" Type="Self.Проживание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Номера">
+        <PropertyRef Name="Номер" />
+      </Principal>
+      <Dependent Role="Проживание">
+        <PropertyRef Name="idНомера" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Проживание_Сотрудник">
+    <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="1" />
+    <End Role="Проживание" Type="Self.Проживание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Сотрудник">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Проживание">
+        <PropertyRef Name="idСотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Сотрудник_Подразделение">
+    <End Role="Подразделение" Type="Self.Подразделение" Multiplicity="0..1" />
+    <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Подразделение">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Сотрудник">
+        <PropertyRef Name="Подразделение" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Сотрудник_Роль">
+    <End Role="Роль" Type="Self.Роль" Multiplicity="1" />
+    <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Роль">
+        <PropertyRef Name="Роль" />
+      </Principal>
+      <Dependent Role="Сотрудник">
+        <PropertyRef Name="Роль" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище ДипломModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Бронь" EntityType="Self.Бронь" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Закупка инвентаря" EntityType="Self.Закупка инвентаря" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Заявка на ремонт" EntityType="Self.Заявка на ремонт" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Инвентарь" EntityType="Self.Инвентарь" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Категория номеров" EntityType="Self.Категория номеров" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Клиент" EntityType="Self.Клиент" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Места на парковке" EntityType="Self.Места на парковке" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Номера" EntityType="Self.Номера" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Отзыв клиента" EntityType="Self.Отзыв клиента" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Парковка" EntityType="Self.Парковка" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Подразделение" EntityType="Self.Подразделение" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Помещение" EntityType="Self.Помещение" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Поставщик" EntityType="Self.Поставщик" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Предоставление услуг" EntityType="Self.Предоставление услуг" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Проживание" EntityType="Self.Проживание" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ремонтные работы" EntityType="Self.Ремонтные работы" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Роль" EntityType="Self.Роль" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Сотрудник" EntityType="Self.Сотрудник" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Статус номера" EntityType="Self.Статус номера" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Тариф" EntityType="Self.Тариф" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Услуги" EntityType="Self.Услуги" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Бронь_Клиент" Association="Self.FK_Бронь_Клиент">
+      <End Role="Клиент" EntitySet="Клиент" />
+      <End Role="Бронь" EntitySet="Бронь" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Бронь_Номера" Association="Self.FK_Бронь_Номера">
+      <End Role="Номера" EntitySet="Номера" />
+      <End Role="Бронь" EntitySet="Бронь" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Закупка инвентаря_Инвентарь" Association="Self.FK_Закупка инвентаря_Инвентарь">
+      <End Role="Инвентарь" EntitySet="Инвентарь" />
+      <End Role="Закупка инвентаря" EntitySet="Закупка инвентаря" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Закупка инвентаря_Поставщик" Association="Self.FK_Закупка инвентаря_Поставщик">
+      <End Role="Поставщик" EntitySet="Поставщик" />
+      <End Role="Закупка инвентаря" EntitySet="Закупка инвентаря" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Закупка инвентаря_Сотрудник" Association="Self.FK_Закупка инвентаря_Сотрудник">
+      <End Role="Сотрудник" EntitySet="Сотрудник" />
+      <End Role="Закупка инвентаря" EntitySet="Закупка инвентаря" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заявка на ремонт_Инвентарь" Association="Self.FK_Заявка на ремонт_Инвентарь">
+      <End Role="Инвентарь" EntitySet="Инвентарь" />
+      <End Role="Заявка на ремонт" EntitySet="Заявка на ремонт" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заявка на ремонт_Номера" Association="Self.FK_Заявка на ремонт_Номера">
+      <End Role="Номера" EntitySet="Номера" />
+      <End Role="Заявка на ремонт" EntitySet="Заявка на ремонт" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заявка на ремонт_Помещение" Association="Self.FK_Заявка на ремонт_Помещение">
+      <End Role="Помещение" EntitySet="Помещение" />
+      <End Role="Заявка на ремонт" EntitySet="Заявка на ремонт" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заявка на ремонт_Ремонтные работы" Association="Self.FK_Заявка на ремонт_Ремонтные работы">
+      <End Role="Ремонтные работы" EntitySet="Ремонтные работы" />
+      <End Role="Заявка на ремонт" EntitySet="Заявка на ремонт" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заявка на ремонт_Сотрудник" Association="Self.FK_Заявка на ремонт_Сотрудник">
+      <End Role="Сотрудник" EntitySet="Сотрудник" />
+      <End Role="Заявка на ремонт" EntitySet="Заявка на ремонт" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Номера_Категория номеров" Association="Self.FK_Номера_Категория номеров">
+      <End Role="Категория номеров" EntitySet="Категория номеров" />
+      <End Role="Номера" EntitySet="Номера" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Номера_Статус номера" Association="Self.FK_Номера_Статус номера">
+      <End Role="Статус номера" EntitySet="Статус номера" />
+      <End Role="Номера" EntitySet="Номера" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Номера_Тариф" Association="Self.FK_Номера_Тариф">
+      <End Role="Тариф" EntitySet="Тариф" />
+      <End Role="Номера" EntitySet="Номера" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Отзыв клиента_Клиент" Association="Self.FK_Отзыв клиента_Клиент">
+      <End Role="Клиент" EntitySet="Клиент" />
+      <End Role="Отзыв клиента" EntitySet="Отзыв клиента" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Парковка_Места на парковке" Association="Self.FK_Парковка_Места на парковке">
+      <End Role="Места на парковке" EntitySet="Места на парковке" />
+      <End Role="Парковка" EntitySet="Парковка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Парковочные места_Клиент" Association="Self.FK_Парковочные места_Клиент">
+      <End Role="Клиент" EntitySet="Клиент" />
+      <End Role="Парковка" EntitySet="Парковка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Предоставление услуг_Проживание1" Association="Self.FK_Предоставление услуг_Проживание1">
+      <End Role="Проживание" EntitySet="Проживание" />
+      <End Role="Предоставление услуг" EntitySet="Предоставление услуг" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Предоставление услуг_Услуги" Association="Self.FK_Предоставление услуг_Услуги">
+      <End Role="Услуги" EntitySet="Услуги" />
+      <End Role="Предоставление услуг" EntitySet="Предоставление услуг" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Проживание_Бронь" Association="Self.FK_Проживание_Бронь">
+      <End Role="Бронь" EntitySet="Бронь" />
+      <End Role="Проживание" EntitySet="Проживание" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Проживание_Клиент" Association="Self.FK_Проживание_Клиент">
+      <End Role="Клиент" EntitySet="Клиент" />
+      <End Role="Проживание" EntitySet="Проживание" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Проживание_Номера" Association="Self.FK_Проживание_Номера">
+      <End Role="Номера" EntitySet="Номера" />
+      <End Role="Проживание" EntitySet="Проживание" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Проживание_Сотрудник" Association="Self.FK_Проживание_Сотрудник">
+      <End Role="Сотрудник" EntitySet="Сотрудник" />
+      <End Role="Проживание" EntitySet="Проживание" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Сотрудник_Подразделение" Association="Self.FK_Сотрудник_Подразделение">
+      <End Role="Подразделение" EntitySet="Подразделение" />
+      <End Role="Сотрудник" EntitySet="Сотрудник" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Сотрудник_Роль" Association="Self.FK_Сотрудник_Роль">
+      <End Role="Роль" EntitySet="Роль" />
+      <End Role="Сотрудник" EntitySet="Сотрудник" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
